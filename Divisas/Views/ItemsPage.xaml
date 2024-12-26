@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Divisas.Views.ItemsPage"
+             Title="Acerca de"
+             xmlns:local="clr-namespace:Divisas.ViewModels"  
+             xmlns:model="clr-namespace:Divisas.Models"  
+             x:Name="acerca_de">
+
+    <!--
+      x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
+      https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
+    -->
+    <StackLayout
+        BackgroundColor="White"
+        Margin="30,30,30,0">
+        <Label Text="Sobre el creador" FontSize="35" TextColor="Black"></Label>
+        <Label FontSize="20" TextColor="Blue"
+               FontAttributes="Bold,Italic"
+               Text="Página web">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnLabelTapped" />
+            </Label.GestureRecognizers>
+            
+        </Label>
+        
+        <Label Text="Convertidor de bolivares" FontSize="33" TextColor="Black"></Label>
+        <Label FontSize="20" TextColor="DarkSlateGray" Text="Es una calculadora de divisas a Bolívares gratuita."></Label>
+
+
+        <Label Text="¿Cómo surgió?" FontSize="33" TextColor="Black"></Label>
+        <Label FontSize="20" TextColor="DarkSlateGray" Text="Es un proyecto destinado a ayudar y facilitar a las personas, en la realización de cálculos con diversas divisas."></Label>
+
+
+        <Label Text="Código abierto" FontSize="33" TextColor="Black"></Label>
+        <Label FontSize="20" TextColor="DarkSlateGray" Text="Es un proyecto de código abierto accesible para cualquiera."></Label>
+
+
+
+    </StackLayout>
+    
+    
+    
+    
+</ContentPage>

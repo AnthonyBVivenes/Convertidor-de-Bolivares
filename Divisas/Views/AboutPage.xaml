@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Divisas.Views.AboutPage"
+             xmlns:vm="clr-namespace:Divisas.ViewModels"
+             Title="Convertidor de divisas"
+             >
+    
+    <ContentPage.BindingContext>
+        <vm:AboutViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#96d1ff</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <!--<StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
+                    <Image Source="xamarin_logo.png" VerticalOptions="Center" HeightRequest="64" />
+                </ContentView>
+            </StackLayout>
+        </StackLayout>-->
+        <ScrollView Grid.Row="1">
+            <StackLayout Orientation="Vertical" Padding="00,0,00,00" Spacing="0">
+                <Label x:Name="lbp" Text="Cargando" FontSize="30" HorizontalTextAlignment="Center">
+                    
+                </Label>
+
+
+
+
+                <Grid
+                      Margin="0,0,0,0"
+                       Padding="0,0,0,0">
+                    <Grid.ColumnDefinitions>
+                        
+                        <ColumnDefinition Width="0.5*" />
+                        <ColumnDefinition Width="*" />
+                        <!-- Columna para el Label, ocupa el espacio restante -->
+                        <ColumnDefinition Width="0.5*" />
+                        <!-- Columna para el Button, ocupa solo el espacio necesario -->
+                    </Grid.ColumnDefinitions>
+                    <StackLayout BackgroundColor="white" Grid.Column="0"
+                                 Margin="0,0,0,0"
+                       Padding="0,0,0,0">
+                        
+                    </StackLayout>
+
+                    <Label x:Name="lb_moneda_top" Text="bcv" FontSize="100" HorizontalTextAlignment="Center"
+                       Margin="0,0,0,0"
+                       Padding="0,0,0,0"
+                       TextColor="Black"
+                       BackgroundColor="Transparent"
+                           Grid.Column="1"></Label>
+                    <StackLayout
+                        Grid.Column="2"
+                        BackgroundColor="white"
+                        Margin="0,0,0,0"
+                       Padding="0,0,0,0">
+                        <Picker x:Name="cboxtop" Title="seleciones una divisa"
+                                BackgroundColor="Yellow"
+                                TextColor="Black"
+                                HorizontalTextAlignment="Center"
+                                SelectedIndexChanged="cboxtop_SelectedIndexChanged"
+                                SelectedItem="bcv">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>"paralelo"</x:String>
+                                    <x:String>"2"</x:String>
+                                    <x:String>"3"</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                    </StackLayout>
+                    
+                    <!-- Ajusta el ancho del botón según sea necesario -->
+                </Grid>
+
+
+
+
+
+                
+                <!--
+                <Frame Padding="0" Margin="10" CornerRadius="5" HasShadow="True" BackgroundColor="Blue">
+                    <Entry Placeholder="Ingrese su texto aquí" BackgroundColor="Green"/>
+                </Frame>-->
+                <Entry StyleClass="" Placeholder="0.0" HorizontalTextAlignment="Center"
+                       FontSize="50"
+                         Margin="30,0,30,0"
+                       x:Name="txt_top"
+                       Focused="txt_top_Focused"
+                       Unfocused="txt_top_Unfocused"    
+                       TextChanged="txt_top_TextChanged"
+                       TextColor="Black"
+                       PlaceholderColor="Black"
+                       BackgroundColor="LightGray"
+                       >
+                    
+                </Entry>
+
+                <StackLayout BackgroundColor="Transparent" VerticalOptions="Fill" HorizontalOptions="Fill"
+                             Padding="0,0,0,0"
+                             Margin="0,0,0,0">
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center"
+                                 Padding="0,0,0,0"
+                                 Margin="0,0,0,0">
+                        <ContentView Padding="0,10,0,10" VerticalOptions="FillAndExpand" Margin="0,0,0,0">
+                            <Image Source="IconConvert.png" VerticalOptions="Center" HeightRequest="64" 
+                                   Margin="0,0,0,0"
+                                   />
+                        </ContentView>
+                    </StackLayout>
+                </StackLayout>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Label x:Name="lb_moneda_dowm" Text="BS" FontSize="100" HorizontalTextAlignment="Center"
+                       Margin="0,0,0,0"
+                       Padding="0,0,0,0"
+                       TextColor="Black"
+                       Grid.Column="1">
+
+                    </Label>
+
+                    <StackLayout
+                        Grid.Column="2"
+                        BackgroundColor="white"
+                        Margin="0,0,0,0"
+                       Padding="0,0,0,0">
+                        <Picker x:Name="cboxdowm" Title="selecione"
+                                BackgroundColor="Yellow"
+                                TextColor="Black"
+                                HorizontalTextAlignment="Center"
+                                SelectedIndexChanged="cboxdowm_SelectedIndexChanged"
+                                SelectedItem="bcv"
+                                >
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>"paralelo"</x:String>
+                                    <x:String>"bcv"</x:String>
+                                    <x:String>"euro"</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                    </StackLayout>
+
+
+                </Grid>
+                
+
+                <Entry StyleClass="" Placeholder="0.0" HorizontalTextAlignment="Center"
+                       FontSize="50"
+                       Margin="30,0,30,0"
+                       x:Name="txt_dowm"
+                       Focused="txt_dowm_Focused"  
+                       Unfocused="txt_dowm_Unfocused"
+                       TextChanged="txt_dowm_TextChanged"
+                       TextColor="Black"
+                       PlaceholderColor="Black"
+                       BackgroundColor="LightGray">
+                </Entry>
+
+
+                <!--<Label FontSize="16" Padding="0,24,0,0">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <FormattedString.Spans>
+                                <Span Text="Learn more at "/>
+                                <Span Text="https://aka.ms/xamarin-quickstart" FontAttributes="Bold"/>
+                            </FormattedString.Spans>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>-->
+                <!--<Button Margin="0,10,0,0" Text="Calcular"
+                        Command="{Binding OpenWebCommand}"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White" />-->
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+
+</ContentPage>
