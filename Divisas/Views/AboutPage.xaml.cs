@@ -361,7 +361,7 @@ namespace Divisas.Views
 
         private void cboxdowm_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            
             switch (cboxdowm.SelectedItem.ToString())
             {
                 case "bcv":
