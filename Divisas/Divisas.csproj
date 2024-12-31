@@ -3,13 +3,9 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <ApplicationIcon>imagenes\iconConvert.ico</ApplicationIcon>
+    <PackageIcon>iconapp.png</PackageIcon>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="NewFolder\**" />
-    <EmbeddedResource Remove="NewFolder\**" />
-    <None Remove="NewFolder\**" />
-  </ItemGroup>
 
   <ItemGroup>
     <None Remove="iconConvert.png" />
@@ -23,6 +19,10 @@
 
   <ItemGroup>
     <EmbeddedResource Include="iconConvert.png" />
+    <None Include="..\Divisas.Android\Resources\drawable\iconapp.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <Resource Include="imagenes\iconConvert.png" />
   </ItemGroup>
 

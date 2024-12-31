@@ -362,3 +362,6 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 Divisas/modulos/token&pass.cs
+Divisas/modulos/tokenandpass.cs
+/Divisas.Android/claves
+/Divisas.Android/apk

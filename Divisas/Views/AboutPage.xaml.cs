@@ -1,9 +1,19 @@
 ﻿using System;
 using System.Net.Http;
+
+using System.Net.Http.Headers;
+
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Collections.Generic;
+
+//token de la api
+using Divisas.modulos;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Text;
+//
+
 namespace Divisas.Views
 {
     public partial class AboutPage : ContentPage
@@ -23,10 +33,11 @@ namespace Divisas.Views
         }
         public class conversor
         {
-
+            
             public double bcv { get; set; } = 0;
             public Moneda paralelo;
-            public double euro { get; set; } = 0;
+            public Moneda euroParalelo { get; set; }
+            public Moneda euroBcv { get; set; }
             public double pesoCol { get; set; } = 0;
 
             public string cambiotop { get; set; } = "bcv";
@@ -38,6 +49,7 @@ namespace Divisas.Views
 
             public double dowm_a_top(double input)
             {
+                //modulos.token_pass.pytoken= "d";//prueba
 
                 switch (cambiodowm)
                 {
@@ -47,44 +59,82 @@ namespace Divisas.Views
                         {
                             case "bs":
                                 return bcv * input;
-                                break;
                             case "paralelo":
-                                return paralelo.price / input;
-                                break;
+                                return (bcv * input) / paralelo.price ;
+                            case "euro paralelo":
+                                return (bcv * input) / euroParalelo.price ;
+                            case "euro bcv":
+                                return (bcv * input) / euroBcv.price ;
                             default:
                                 return 0;
-                                break;
                         }
 
-                        break;
+
                     case "paralelo":
-
-
                         switch (cambiotop)
                         {
                             case "bs":
                                 return paralelo.price * input;
                             case "bcv":
-                                return bcv / input;
+                                return (input * paralelo.price) / bcv ;
+                            case "euro paralelo":
+                                return (input * paralelo.price) / euroParalelo.price ;
+                            case "euro bcv":
+                                return (input * paralelo.price) / euroBcv.price ;
+                            default:
                                 break;
+                        }
+                        break;
+                    case "euro paralelo":
+
+
+                        switch (cambiotop)
+                        {
+                            case "bs":
+                                return euroParalelo.price * input;
+                            case "bcv":
+                                return (input * euroParalelo.price) / bcv;
+                            case "paralelo":
+                                return (input * euroParalelo.price) / paralelo.price;
+                            case "euro bcv":
+                                return (input * euroParalelo.price) / euroBcv.price;
                             default:
 
                                 break;
                         }
                         break;
-                    case "euro":
+                        
+                    case "euro bcv":
 
+
+                        switch (cambiotop)
+                        {
+                            case "bs":
+                                return euroBcv.price * input;
+                            case "bcv":
+                                return (input * euroBcv.price) / bcv;
+                            case "paralelo":
+                                return (input * euroBcv.price) / paralelo.price;
+                            case "euro paralelo":
+                                return (input * euroBcv.price) / euroParalelo.price;
+                            default:
+
+                                break;
+                        }
                         break;
+
                     case "bs":
 
                         switch (cambiotop)
                         {
                             case "bcv":
                                 return input / bcv;
-                                break;
                             case "paralelo":
                                 return input / paralelo.price;
-                                break;
+                            case "euro paralelo":
+                                return input / euroParalelo.price;
+                            case "euro bcv":
+                                return input / euroBcv.price;
                             default:
                                 break;
                         }
@@ -112,16 +162,17 @@ namespace Divisas.Views
                         {
                             case "bs":
                                 return bcv * input;
-                                break;
                             case "paralelo":
                                 return ( bcv * input) / paralelo.price;
-                                break;
+                            case "euro paralelo":
+                                return ( bcv * input) / euroParalelo.price;
+                            case "euro bcv":
+                                return ( bcv * input) / euroBcv.price;
                             default:
                                 return 0;
-                                break;
                         }
 
-                            break;
+
                         case "paralelo":
 
                         switch (cambiodowm)
@@ -130,28 +181,76 @@ namespace Divisas.Views
                                 return paralelo.price * input;
                             case "bcv":
                                 return (input * paralelo.price) / bcv;
-                                break;
+                            case "euro paralelo":
+                                return (input * paralelo.price) / euroParalelo.price;
+                            case "euro bcv":
+                                return (input * paralelo.price) / euroBcv.price;
                             default:
 
                                 break;
                         }
                             break;
-                        case "euro":
 
-                            break;
-                        case "bs":
+                        case "euro paralelo":
+
+
+                        switch (cambiodowm)
+                        {
+                            case "bs":
+                                return euroParalelo.price * input;
+                            case "bcv":
+                                return (input * euroParalelo.price) / bcv;
+                            case "euro paralelo":
+                                return (input * euroParalelo.price) / euroParalelo.price;
+                            case "paralelo":
+                                return (input * euroParalelo.price) / paralelo.price;
+                            default:
+
+                                break;
+                        }
+                        break;
+
+
+                        
+
+                        case "euro bcv":
+
+
+                        switch (cambiodowm)
+                        {
+                            case "bs":
+                                return euroBcv.price * input;
+                            case "bcv":
+                                return (input * euroBcv.price) / bcv;
+                            case "euro paralelo":
+                                return (input * euroBcv.price) / euroParalelo.price;
+                            case "paralelo":
+                                return (input * euroBcv.price) / paralelo.price;
+                            default:
+
+                                break;
+                        }
+                        break;
+
+
+
+                    case "bs":
+
                         switch (cambiodowm)
                         {
                             case "bcv":
                                 return input / bcv;
-                                break;
+                            case "bs":
+                                return input;
                             case "paralelo":
                                 return input / paralelo.price;
-                                break;
+                            case "euro paralelo":
+                                return input / euroParalelo.price;
                             default:
                                 break;
                         }
                             break;
+
                         default:
 
                             break;
@@ -165,42 +264,118 @@ namespace Divisas.Views
 
             public Label lbp;
 
-            public async void getparalelo()
+            public async Task getparalelo()
             {
                 lbp.Text = "cargando";
                 try
                 {
-                    
                     using (HttpClient client = new HttpClient())
                     {
                         string url = "https://pydolarve.org/api/v1/dollar?page=enparalelovzla&monitor=enparalelovzla";
                         string jsonResponse = await client.GetStringAsync(url);
                         paralelo = JsonConvert.DeserializeObject<Moneda>(jsonResponse);
                         paralelo.isfill = true;
+                        lbp.Text = paralelo.price.ToString() + " = $ paralelo";
+                        await App.Current.MainPage.DisplayAlert("Precio del dolar paralelo", paralelo.price.ToString(), "OK");
 
-                        lbp.Text = paralelo.price.ToString() + " paralelo";
                     }
-
                     // Actualiza la interfaz de usuario después de cargar los datos
                     //lbp.Text = cambio?.price.ToString() + "bcv" ?? "No data bcv "; // Asegúrate de que cambio no sea nulo
                 }
                 catch (Exception ex)
                 {
-
                     // Manejo de errores
-                    
-                    //await DisplayAlert("Error", ex.Message, "OK");
+                    await App.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
                 }
 
-
-
             }
+
+
+
+
+
+
+
+
+
+
+            private static readonly HttpClient client = new HttpClient();
+
+
+
+
+            public async Task GetEuroParalelo()
+            {
+                string url = "https://pydolarve.org/api/v1/euro?monitor=enparalelovzla";
+                string token = modulos.token_pass.pytoken;
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(url);
+                    response.EnsureSuccessStatusCode();
+                    string jsonResponse = await response.Content.ReadAsStringAsync();
+                     euroParalelo = JsonConvert.DeserializeObject<Moneda>(jsonResponse);
+                    euroParalelo.isfill = true;
+                    lbp.Text = euroParalelo.price.ToString() + " = € Paralelo";
+                    await App.Current.MainPage.DisplayAlert("Precio del Euro paralelo", euroParalelo.price.ToString(), "OK");
+                    
+                }
+                catch (HttpRequestException e)
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", e.Message, "OK");
+                }
+                catch (Exception ex)
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                }
+            }
+
+
+
+
+
+
+            public async Task GetEuroBcv()
+            {
+                string url = "https://pydolarve.org/api/v1/euro?monitor=bcv";
+                string token = modulos.token_pass.pytoken;
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(url);
+                    response.EnsureSuccessStatusCode();
+                    string jsonResponse = await response.Content.ReadAsStringAsync();
+                    euroBcv = JsonConvert.DeserializeObject<Moneda>(jsonResponse);
+                    euroBcv.isfill = true;
+                    lbp.Text = euroBcv.price.ToString() + " = € BCV";
+                    await App.Current.MainPage.DisplayAlert("Precio del Euro BCV", euroBcv.price.ToString(), "OK");
+
+
+                }
+                catch (HttpRequestException e)
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", e.Message, "OK");
+                }
+                catch (Exception ex)
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                }
+            }
+
+
+            public Entry txtdowm;
+            public Entry txttop;
 
 
             public conversor()
             {
                 paralelo = new Moneda {price=0};
-
+                euroBcv = new Moneda { price = 0 };
+                euroParalelo = new Moneda { price = 0 };
             }
 
         }
@@ -220,24 +395,32 @@ namespace Divisas.Views
                                    // Definir las opciones del Picker
             List<string> opciones = new List<string>
             {
-                "paralelo",
-                "euro",
-                "bcv",
-                "bs"
+                "Dólar paralelo",
+                "Dólar bcv",
+                "Euro paralelo",
+                "Euro bcv",
+                "Bolívares"
             };
+
             List<string> opcionesDowm = new List<string>
             {
                 "paralelo",
-                "euro",
+                "euro paralelo",
                 "bcv",
                 "bs"
             };
             calculador.lbp = lbp;
+            calculador.txtdowm = txt_dowm;
+            calculador.txttop = txt_top;
 
             // Asignar la lista al ItemsSource del Picker
             cboxtop.ItemsSource = opciones;
             cboxdowm.ItemsSource = opciones;
             LoadData(); // Llama al método para cargar datos
+
+            cboxtop.SelectedItem = "Dólar bcv";
+            cboxdowm.SelectedItem = "Bolívares";
+
         }
 
         private async void LoadData()
@@ -291,10 +474,9 @@ namespace Divisas.Views
 
             }
 
-
         }
 
-        private void txt_top_TextChanged(object sender, TextChangedEventArgs e)
+        public void txt_top_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (calculador.txtselect == false) {
                 if (EsNumero(txt_top.Text))
@@ -304,22 +486,23 @@ namespace Divisas.Views
             }
         }
 
-        private void txt_top_Focused(object sender, FocusEventArgs e)
+
+        public void txt_top_Focused(object sender, FocusEventArgs e)
         {
             calculador.txtselect = false;
         }
 
-        private void txt_dowm_Focused(object sender, FocusEventArgs e)
+        public void txt_dowm_Focused(object sender, FocusEventArgs e)
         {
             calculador.txtselect = true;
         }
 
-        private void txt_dowm_Unfocused(object sender, FocusEventArgs e)
+        public void txt_dowm_Unfocused(object sender, FocusEventArgs e)
         {
             calculador.txtselect = false;
         }
 
-        private void txt_top_Unfocused(object sender, FocusEventArgs e)
+        public void txt_top_Unfocused(object sender, FocusEventArgs e)
         {
             calculador.txtselect = true;
         }
@@ -336,26 +519,40 @@ namespace Divisas.Views
 
             switch (cboxtop.SelectedItem.ToString())
             {
-                case "bcv":
+                case "Dólar bcv":
                     calculador.cambiotop = "bcv";
                     lbp.Text = calculador.bcv + " bcv";
                     lb_moneda_top.Text = "bcv";
+
                     break;
-                case "paralelo":
+                case "Dólar paralelo":
                     lbp.Text = "Cargando";
                     calculador.getparalelo();
                     calculador.cambiotop = "paralelo";
                     lb_moneda_top.Text = "$";
                     break;
-                case "euro":
-                    msgbox("!Estamos trabajando en incluir esta funcionalidad pronto!");
-                    cboxtop.SelectedItem = calculador.cambiotop;
+                case "Euro paralelo":
+                    //msgbox("!Estamos trabajando en incluir esta funcionalidad pronto!");
+                    lbp.Text = "Cargando";
+                    calculador.GetEuroParalelo();
+                    calculador.cambiotop = "euro paralelo";
+                    lb_moneda_top.Text = "€";
+                    //cboxtop.SelectedItem = calculador.cambiotop;
+                    break;
+                case "Euro bcv":
+                    //msgbox("!Estamos trabajando en incluir esta funcionalidad pronto!");
+                    lbp.Text = "Cargando";
+                    calculador.GetEuroBcv();
+                    calculador.cambiotop = "euro bcv";
+                    lb_moneda_top.Text = "€";
+                    //cboxtop.SelectedItem = calculador.cambiotop;
                     break;
                 default:
                     calculador.cambiotop = "bs";
                     lb_moneda_top.Text ="bs";
                     break;
             }
+            txt_top.Text = "0";
 
         }
 
@@ -364,26 +561,40 @@ namespace Divisas.Views
             
             switch (cboxdowm.SelectedItem.ToString())
             {
-                case "bcv":
+                case "Dólar bcv":
                     calculador.cambiodowm = "bcv";
                     lbp.Text = calculador.bcv + " bcv";
                     lb_moneda_top.Text = "bcv";
+                    
                     break;
-                case "paralelo":
+                case "Dólar paralelo":
                     lbp.Text = "Cargando";
                     calculador.getparalelo();
                     calculador.cambiodowm = "paralelo";
                     lb_moneda_dowm.Text ="$";
                     break;
-                case "euro":
-                    msgbox("!Estamos trabajando en incluir esta funcionalidad pronto!");
-                    cboxdowm.SelectedItem = calculador.cambiodowm;
+                case "Euro paralelo":
+                    //msgbox("!Estamos trabajando en incluir esta funcionalidad pronto!");
+                    lbp.Text = "Cargando";
+                    calculador.GetEuroParalelo();
+                    calculador.cambiodowm = "euro paralelo";
+                    lb_moneda_dowm.Text = "€";
+                    //cboxtop.SelectedItem = calculador.cambiotop;
+                    break;
+                case "Euro bcv":
+                    //msgbox("!Estamos trabajando en incluir esta funcionalidad pronto!");
+                    lbp.Text = "Cargando";
+                    calculador.GetEuroBcv();
+                    calculador.cambiodowm = "euro bcv";
+                    lb_moneda_dowm.Text = "€";
+                    //cboxtop.SelectedItem = calculador.cambiotop;
                     break;
                 default:
                     calculador.cambiodowm = "bs";
                     lb_moneda_dowm.Text ="bs";
                     break;
             }
+            txt_dowm.Text = "0";
 
         }
     }

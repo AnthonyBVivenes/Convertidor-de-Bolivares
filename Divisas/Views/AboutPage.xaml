@@ -29,7 +29,7 @@
         </StackLayout>-->
         <ScrollView Grid.Row="1">
             <StackLayout Orientation="Vertical" Padding="00,0,00,00" Spacing="0">
-                <Label x:Name="lbp" Text="Cargando" FontSize="30" HorizontalTextAlignment="Center">
+                <Label x:Name="lbp" Text="Cargando" FontSize="30" HorizontalTextAlignment="Center" TextColor="Black">
                     
                 </Label>
 
@@ -66,13 +66,15 @@
                        Padding="0,0,0,0">
                         <Picker x:Name="cboxtop" Title="seleciones una divisa"
                                 BackgroundColor="Yellow"
+                                TitleColor="Black"
                                 TextColor="Black"
                                 HorizontalTextAlignment="Center"
                                 SelectedIndexChanged="cboxtop_SelectedIndexChanged"
-                                SelectedItem="bcv">
+                                SelectedItem="1"
+                                >
                             <Picker.ItemsSource>
                                 <x:Array Type="{x:Type x:String}">
-                                    <x:String>"paralelo"</x:String>
+                                    <x:String>"1"</x:String>
                                     <x:String>"2"</x:String>
                                     <x:String>"3"</x:String>
                                 </x:Array>
