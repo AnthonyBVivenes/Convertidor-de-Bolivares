@@ -1,5 +1,5 @@
-# Converitodor de Bolívares
-        Es una app para convertir las las tasa de divisas a Bolívares. como dolar bcv, dolar paralelo, euro y más..
+# Convertidor de Bolívares
+        Es una app para convertir las tasas de divisas a Bolívares. como dolar bcv, dolar paralelo, euro y más..
 
 ## Descargar la última versión
 
@@ -10,9 +10,8 @@
         Está hecha en XAML y C#
         Convierte tasas de diversas divisas
 
-* BCV
-* Paralelo
-* Euro
+* Dolar (Paralelo y BCV)
+* Euro (Paralelo y BCV)
 * Bolívar
 
 Pronto se planea introducir
